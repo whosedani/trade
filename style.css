@@ -473,7 +473,6 @@ body::before {
   max-width: 100%;
   transform: scale(1.22);
   transform-origin: top center;
-  margin-bottom: 40px;
 }
 .tweet-embed iframe {
   width: 100%;
