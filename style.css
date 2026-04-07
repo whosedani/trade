@@ -471,7 +471,11 @@ body::before {
   width: 100%;
   max-width: 550px;
   margin: 0 auto 24px;
-  min-height: 300px;
+}
+.tweet-embed iframe {
+  width: 100%;
+  min-height: 400px;
+  border-radius: 12px;
 }
 .boss-subtext {
   font-family: var(--font-body);

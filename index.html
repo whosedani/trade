@@ -126,15 +126,20 @@
     </div>
   </section>
 
-  <!-- BOSS FIGHT — Real Tweet Embed -->
+  <!-- BOSS FIGHT -->
   <section id="level4" class="level level-boss">
     <div class="level-container boss-container">
       <h2 class="level-title">BOSS FIGHT</h2>
 
       <div class="tweet-embed">
-        <blockquote class="twitter-tweet" data-theme="dark" data-width="550">
-          <a href="https://x.com/okx/status/2041401589030646174"></a>
-        </blockquote>
+        <iframe
+          src="https://platform.twitter.com/embed/Tweet.html?id=2041401589030646174&theme=dark"
+          allowfullscreen
+          frameborder="0"
+          scrolling="no"
+          style="width:100%;border:none;max-width:550px;"
+          id="tweetFrame"
+        ></iframe>
       </div>
 
       <p class="boss-subtext">if this tweet didn't call you out, you're lying.</p>
@@ -186,7 +191,6 @@
     </div>
   </footer>
 
-  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   <script src="script.js"></script>
 </body>
 </html>

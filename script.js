@@ -212,6 +212,23 @@
     }, 1200);
   }
 
+  /* ── Tweet iframe resize ── */
+  function initTweetResize() {
+    window.addEventListener('message', function (e) {
+      if (e.origin.indexOf('twitter.com') === -1) return;
+      try {
+        var data = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
+        if (data['twttr.embed'] && data['twttr.embed'].method === 'twttr.private.resize') {
+          var params = data['twttr.embed'].params;
+          if (params && params.length) {
+            var frame = document.getElementById('tweetFrame');
+            if (frame) frame.style.height = params[0].height + 'px';
+          }
+        }
+      } catch (err) {}
+    });
+  }
+
   /* ── Start Button ── */
   function initStartButton() {
     const btn = document.getElementById('startBtn');
@@ -244,6 +261,7 @@
     initScrollReveal();
     initLoopAnimation();
     initStartButton();
+    initTweetResize();
 
     window.addEventListener('scroll', onScroll, { passive: true });
 
