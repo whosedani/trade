@@ -458,19 +458,11 @@ body::before {
   line-height: 1.6;
 }
 
-/* ── BOSS FIGHT — Tweet Embed ── */
-.level-boss {
-  background: #181B23;
-}
-.boss-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+/* ── Tweet Embed ── */
 .tweet-embed {
   width: 100%;
   max-width: 550px;
-  margin: 0 auto 24px;
+  margin: 48px auto 24px;
 }
 .tweet-embed iframe {
   width: 100%;
