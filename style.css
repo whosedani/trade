@@ -467,12 +467,14 @@ body::before {
 .tweet-container {
   display: flex;
   justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 .tweet-embed {
   width: 550px;
   max-width: 100%;
   transform: scale(1.22);
-  transform-origin: top center;
+  transform-origin: center center;
 }
 .tweet-embed iframe {
   width: 100%;
