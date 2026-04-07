@@ -201,13 +201,13 @@ body::before {
   color: var(--screen-white);
   background: rgba(77,218,110,0.08);
 }
-.nav-community {
+.nav-twitter {
   color: var(--hud-grey);
   transition: color 0.2s;
   display: flex;
   align-items: center;
 }
-.nav-community:hover {
+.nav-twitter:hover {
   color: var(--xp-blue);
 }
 

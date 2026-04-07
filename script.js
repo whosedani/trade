@@ -21,14 +21,11 @@
       navCA.textContent = 'CA not set';
     }
 
-    const communityLink = document.getElementById('communityLink');
-    if (CONFIG.community) communityLink.href = CONFIG.community;
+    const twitterLink = document.getElementById('twitterLink');
+    if (CONFIG.twitter) twitterLink.href = CONFIG.twitter;
 
     const footerTwitter = document.getElementById('footerTwitter');
     if (CONFIG.twitter) footerTwitter.href = CONFIG.twitter;
-
-    const footerCommunity = document.getElementById('footerCommunity');
-    if (CONFIG.community) footerCommunity.href = CONFIG.community;
 
     const footerBuy = document.getElementById('footerBuy');
     if (CONFIG.buy) footerBuy.href = CONFIG.buy;
