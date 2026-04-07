@@ -5,7 +5,7 @@
 
 :root {
   --crt-black: #121318;
-  --xp-blue: #4DA8DA;
+  --xp-blue: #4DDA6E;
   --crit-red: #FF4545;
   --loot-gold: #FFD93D;
   --screen-white: #D8DEE9;
@@ -41,8 +41,8 @@ body::before {
   z-index: 0;
   pointer-events: none;
   background-image:
-    repeating-linear-gradient(0deg, rgba(77,168,218,0.04) 0 1px, transparent 1px 40px),
-    repeating-linear-gradient(90deg, rgba(77,168,218,0.04) 0 1px, transparent 1px 40px);
+    repeating-linear-gradient(0deg, rgba(77,218,110,0.04) 0 1px, transparent 1px 40px),
+    repeating-linear-gradient(90deg, rgba(77,218,110,0.04) 0 1px, transparent 1px 40px);
 }
 
 /* ── Toast ── */
@@ -101,7 +101,7 @@ body::before {
   border: 1px solid var(--xp-blue);
   border-radius: 2px;
   overflow: hidden;
-  background: rgba(77,168,218,0.05);
+  background: rgba(77,218,110,0.05);
 }
 .health-fill {
   width: 100%;
@@ -172,7 +172,7 @@ body::before {
   background: rgba(18,19,24,0.9);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(77,168,218,0.1);
+  border-bottom: 1px solid rgba(77,218,110,0.1);
 }
 .nav-logo {
   font-family: var(--font-heading);
@@ -199,7 +199,7 @@ body::before {
 }
 .nav-ca:hover {
   color: var(--screen-white);
-  background: rgba(77,168,218,0.08);
+  background: rgba(77,218,110,0.08);
 }
 .nav-community {
   color: var(--hud-grey);
@@ -302,7 +302,7 @@ body::before {
   color: var(--xp-blue);
   letter-spacing: -2px;
   line-height: 1;
-  text-shadow: 0 0 30px rgba(77,168,218,0.3);
+  text-shadow: 0 0 30px rgba(77,218,110,0.3);
 }
 
 .hero-desc {
@@ -340,8 +340,8 @@ body::before {
   margin-bottom: 32px;
 }
 .hero-btn:hover {
-  background: rgba(77,168,218,0.1);
-  box-shadow: 0 0 20px rgba(77,168,218,0.15);
+  background: rgba(77,218,110,0.1);
+  box-shadow: 0 0 20px rgba(77,218,110,0.15);
 }
 
 .hero-scroll-hint {
@@ -392,8 +392,8 @@ body::before {
   gap: 24px;
 }
 .time-block {
-  border: 1px solid rgba(77,168,218,0.1);
-  background: rgba(77,168,218,0.02);
+  border: 1px solid rgba(77,218,110,0.1);
+  background: rgba(77,218,110,0.02);
   padding: 24px;
   border-radius: 4px;
 }
@@ -440,7 +440,7 @@ body::before {
 }
 .loop-step.active .loop-text {
   color: var(--xp-blue);
-  text-shadow: 0 0 16px rgba(77,168,218,0.3);
+  text-shadow: 0 0 16px rgba(77,218,110,0.3);
 }
 .loop-step[data-index="4"].active .loop-text {
   color: var(--loot-gold);
@@ -451,7 +451,7 @@ body::before {
   color: rgba(90,98,112,0.4);
 }
 .loop-return {
-  color: rgba(77,168,218,0.4);
+  color: rgba(77,218,110,0.4);
 }
 
 .loop-desc {
@@ -530,8 +530,8 @@ body::before {
   background: #181B23;
 }
 .boss-quote {
-  background: rgba(77,168,218,0.04);
-  border: 1px solid rgba(77,168,218,0.12);
+  background: rgba(77,218,110,0.04);
+  border: 1px solid rgba(77,218,110,0.12);
   border-radius: 12px;
   padding: 32px;
   max-width: 540px;
@@ -578,7 +578,7 @@ body::before {
   align-items: center;
   justify-content: space-between;
   padding: 16px 20px;
-  border: 1px solid rgba(77,168,218,0.1);
+  border: 1px solid rgba(77,218,110,0.1);
   border-radius: 4px;
   font-family: var(--font-mono);
   font-size: 14px;
