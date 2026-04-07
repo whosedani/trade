@@ -226,13 +226,7 @@ body::before {
   margin: 0 auto;
   padding: 100px 24px;
 }
-.level-label {
-  font-family: var(--font-heading);
-  font-size: 14px;
-  color: var(--hud-grey);
-  letter-spacing: 4px;
-  margin-bottom: 8px;
-}
+/* level-label removed */
 .level-title {
   font-family: var(--font-heading);
   font-size: 28px;
@@ -464,101 +458,20 @@ body::before {
   line-height: 1.6;
 }
 
-/* ── LEVEL 3 — The Symptoms ── */
-.achievements {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.achievement {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px 20px;
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 4px;
-  background: rgba(255,255,255,0.02);
-}
-.achievement-icon {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.achievement.visible .achievement-icon {
-  animation: iconFlash 0.5s ease;
-}
-@keyframes iconFlash {
-  0% { box-shadow: 0 0 0 rgba(255,217,61,0); }
-  50% { box-shadow: 0 0 16px rgba(255,217,61,0.5); border-color: var(--loot-gold); }
-  100% { box-shadow: 0 0 0 rgba(255,217,61,0); }
-}
-
-.achievement-info {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-width: 0;
-}
-.achievement-name {
-  font-family: var(--font-heading);
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--screen-white);
-  letter-spacing: 1px;
-}
-.achievement-desc {
-  font-family: var(--font-body);
-  font-size: 12px;
-  color: var(--hud-grey);
-}
-.achievement-status {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--loot-gold);
-  letter-spacing: 1px;
-  flex-shrink: 0;
-}
-
-/* ── LEVEL 4 — Boss Fight ── */
+/* ── BOSS FIGHT — Tweet Embed ── */
 .level-boss {
   background: #181B23;
 }
-.boss-quote {
-  background: rgba(77,218,110,0.04);
-  border: 1px solid rgba(77,218,110,0.12);
-  border-radius: 12px;
-  padding: 32px;
-  max-width: 540px;
-  margin: 0 auto 24px;
-}
-.boss-quote-header {
+.boss-container {
   display: flex;
-  align-items: baseline;
-  gap: 10px;
-  margin-bottom: 16px;
+  flex-direction: column;
+  align-items: center;
 }
-.boss-quote-author {
-  font-family: var(--font-heading);
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--loot-gold);
-}
-.boss-quote-handle {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--hud-grey);
-}
-.boss-quote-text {
-  font-family: var(--font-body);
-  font-size: 20px;
-  color: var(--screen-white);
-  line-height: 1.5;
+.tweet-embed {
+  width: 100%;
+  max-width: 550px;
+  margin: 0 auto 24px;
+  min-height: 300px;
 }
 .boss-subtext {
   font-family: var(--font-body);
