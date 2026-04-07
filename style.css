@@ -1,0 +1,764 @@
+/* ═══════════════════════════════════════════
+   $TRADE — Just One More Trade
+   Video game UI / CRT aesthetic
+   ═══════════════════════════════════════════ */
+
+:root {
+  --crt-black: #121318;
+  --xp-blue: #4DA8DA;
+  --crit-red: #FF4545;
+  --loot-gold: #FFD93D;
+  --screen-white: #D8DEE9;
+  --hud-grey: #5A6270;
+  --font-heading: 'Chakra Petch', sans-serif;
+  --font-body: 'Lexend', sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--crt-black);
+  color: var(--screen-white);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Grid Background ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(77,168,218,0.04) 0 1px, transparent 1px 40px),
+    repeating-linear-gradient(90deg, rgba(77,168,218,0.04) 0 1px, transparent 1px 40px);
+}
+
+/* ── Toast ── */
+#toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--loot-gold);
+  background: rgba(18,19,24,0.95);
+  border: 1px solid rgba(255,217,61,0.2);
+  padding: 10px 24px;
+  border-radius: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 9999;
+}
+#toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── HUD Overlay ── */
+#hud {
+  position: fixed;
+  top: 56px;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  pointer-events: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 12px 20px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.4s, transform 0.4s;
+}
+#hud.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hud-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.health-bar {
+  width: 200px;
+  height: 12px;
+  border: 1px solid var(--xp-blue);
+  border-radius: 2px;
+  overflow: hidden;
+  background: rgba(77,168,218,0.05);
+}
+.health-fill {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--crit-red), var(--loot-gold));
+  transition: width 0.15s linear;
+}
+.health-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--hud-grey);
+}
+.health-bar.critical {
+  animation: healthFlash 0.6s ease infinite;
+}
+@keyframes healthFlash {
+  0%, 100% { border-color: var(--xp-blue); }
+  50% { border-color: var(--crit-red); box-shadow: 0 0 8px rgba(255,69,69,0.4); }
+}
+
+.hud-right {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.trade-counter-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--hud-grey);
+}
+.trade-counter {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  color: var(--loot-gold);
+}
+
+#milestone {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--loot-gold);
+  text-shadow: 0 0 12px rgba(255,217,61,0.5);
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+  z-index: 101;
+}
+#milestone.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Nav ── */
+.game-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  height: 48px;
+  background: rgba(18,19,24,0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(77,168,218,0.1);
+}
+.nav-logo {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--xp-blue);
+  text-decoration: none;
+  letter-spacing: 2px;
+}
+.nav-ca {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--hud-grey);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: color 0.2s, background 0.2s;
+  max-width: 320px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.nav-ca:hover {
+  color: var(--screen-white);
+  background: rgba(77,168,218,0.08);
+}
+.nav-community {
+  color: var(--hud-grey);
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+}
+.nav-community:hover {
+  color: var(--xp-blue);
+}
+
+/* ── Level Common ── */
+.level {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.level-container {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 100px 24px;
+}
+.level-label {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  color: var(--hud-grey);
+  letter-spacing: 4px;
+  margin-bottom: 8px;
+}
+.level-title {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  color: var(--screen-white);
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+/* ── LEVEL 0 — Title Screen ── */
+.level-hero {
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('static/hero.png') center/cover no-repeat;
+  opacity: 0.25;
+  z-index: -2;
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(18,19,24,0) 0%, rgba(18,19,24,0.85) 70%);
+  z-index: -1;
+}
+.hero-content {
+  text-align: center;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+.hero-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--hud-grey);
+  letter-spacing: 4px;
+  margin-bottom: 24px;
+  animation: blink 1.2s step-end infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.hero-title {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 32px;
+}
+.hero-title-top {
+  font-family: var(--font-heading);
+  font-size: clamp(48px, 10vw, 140px);
+  font-weight: 700;
+  color: var(--screen-white);
+  letter-spacing: -2px;
+  line-height: 1;
+}
+.hero-title-ticker {
+  font-family: var(--font-heading);
+  font-size: clamp(48px, 10vw, 140px);
+  font-weight: 700;
+  color: var(--xp-blue);
+  letter-spacing: -2px;
+  line-height: 1;
+  text-shadow: 0 0 30px rgba(77,168,218,0.3);
+}
+
+.hero-desc {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--hud-grey);
+  max-width: 480px;
+  line-height: 1.6;
+  min-height: 52px;
+  margin-bottom: 40px;
+}
+.hero-desc::after {
+  content: '\258E';
+  animation: cursorBlink 0.8s step-end infinite;
+  color: var(--xp-blue);
+  margin-left: 2px;
+}
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.hero-btn {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--xp-blue);
+  background: transparent;
+  border: 1px solid var(--xp-blue);
+  padding: 14px 36px;
+  border-radius: 4px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: all 0.25s;
+  margin-bottom: 32px;
+}
+.hero-btn:hover {
+  background: rgba(77,168,218,0.1);
+  box-shadow: 0 0 20px rgba(77,168,218,0.15);
+}
+
+.hero-scroll-hint {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--hud-grey);
+  letter-spacing: 2px;
+  opacity: 0.6;
+  animation: gentlePulse 3s ease-in-out infinite;
+}
+@keyframes gentlePulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.3; }
+}
+
+/* ── LEVEL 1 — The First Hit ── */
+.loading-tip {
+  border-left: 2px solid var(--loot-gold);
+  padding-left: 16px;
+  margin-bottom: 32px;
+}
+.loading-tip p {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--loot-gold);
+}
+
+.progress-bar-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 2px;
+  margin-bottom: 48px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  width: 0%;
+  height: 100%;
+  background: var(--xp-blue);
+  border-radius: 2px;
+  transition: width 0.1s linear;
+}
+
+.time-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.time-block {
+  border: 1px solid rgba(77,168,218,0.1);
+  background: rgba(77,168,218,0.02);
+  padding: 24px;
+  border-radius: 4px;
+}
+.time-stamp {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--screen-white);
+  display: block;
+  margin-bottom: 8px;
+}
+.time-block.danger .time-stamp {
+  color: var(--crit-red);
+}
+.time-text {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--hud-grey);
+  line-height: 1.5;
+}
+
+/* ── LEVEL 2 — The Loop ── */
+.loop-cycle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 48px;
+}
+.loop-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 0;
+  transition: all 0.3s;
+}
+.loop-text {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--hud-grey);
+  transition: color 0.4s, text-shadow 0.4s;
+}
+.loop-step.active .loop-text {
+  color: var(--xp-blue);
+  text-shadow: 0 0 16px rgba(77,168,218,0.3);
+}
+.loop-step[data-index="4"].active .loop-text {
+  color: var(--loot-gold);
+  text-shadow: 0 0 16px rgba(255,217,61,0.3);
+}
+.loop-arrow {
+  font-size: 18px;
+  color: rgba(90,98,112,0.4);
+}
+.loop-return {
+  color: rgba(77,168,218,0.4);
+}
+
+.loop-desc {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--hud-grey);
+  text-align: center;
+  max-width: 540px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ── LEVEL 3 — The Symptoms ── */
+.achievements {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.achievement {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 4px;
+  background: rgba(255,255,255,0.02);
+}
+.achievement-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.achievement.visible .achievement-icon {
+  animation: iconFlash 0.5s ease;
+}
+@keyframes iconFlash {
+  0% { box-shadow: 0 0 0 rgba(255,217,61,0); }
+  50% { box-shadow: 0 0 16px rgba(255,217,61,0.5); border-color: var(--loot-gold); }
+  100% { box-shadow: 0 0 0 rgba(255,217,61,0); }
+}
+
+.achievement-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+.achievement-name {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--screen-white);
+  letter-spacing: 1px;
+}
+.achievement-desc {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--hud-grey);
+}
+.achievement-status {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--loot-gold);
+  letter-spacing: 1px;
+  flex-shrink: 0;
+}
+
+/* ── LEVEL 4 — Boss Fight ── */
+.level-boss {
+  background: #181B23;
+}
+.boss-quote {
+  background: rgba(77,168,218,0.04);
+  border: 1px solid rgba(77,168,218,0.12);
+  border-radius: 12px;
+  padding: 32px;
+  max-width: 540px;
+  margin: 0 auto 24px;
+}
+.boss-quote-header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.boss-quote-author {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--loot-gold);
+}
+.boss-quote-handle {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--hud-grey);
+}
+.boss-quote-text {
+  font-family: var(--font-body);
+  font-size: 20px;
+  color: var(--screen-white);
+  line-height: 1.5;
+}
+.boss-subtext {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--hud-grey);
+  text-align: center;
+}
+
+/* ── LEVEL 5 — Insert Coin ── */
+.arcade-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.arcade-step {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border: 1px solid rgba(77,168,218,0.1);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+.arcade-continue {
+  color: var(--xp-blue);
+  animation: arcadeBlink 1.2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes arcadeBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.arcade-instruction {
+  color: var(--screen-white);
+  flex: 1;
+  text-align: center;
+  padding: 0 12px;
+}
+.arcade-num {
+  color: var(--hud-grey);
+}
+.arcade-coin {
+  color: var(--loot-gold);
+  flex-shrink: 0;
+}
+.arcade-gameover {
+  color: var(--crit-red);
+}
+
+/* ── GAME OVER — Footer ── */
+#gameOver {
+  background: #0A0B0F;
+  padding: 80px 24px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.gameover-content {
+  max-width: 480px;
+  margin: 0 auto;
+}
+.gameover-title {
+  font-family: var(--font-heading);
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--crit-red);
+  animation: gameoverBlink 3s ease-in-out infinite;
+  margin-bottom: 16px;
+}
+@keyframes gameoverBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+.gameover-continue {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--hud-grey);
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+.gameover-tagline {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--hud-grey);
+  animation: gentlePulse 3s ease-in-out infinite;
+  margin-bottom: 24px;
+}
+.gameover-counter {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  color: var(--loot-gold);
+  margin-bottom: 32px;
+}
+.gameover-links {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.gameover-link {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  color: var(--hud-grey);
+  text-decoration: none;
+  letter-spacing: 1px;
+  padding: 8px 16px;
+  border: 1px solid rgba(90,98,112,0.3);
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+.gameover-link:hover {
+  color: var(--xp-blue);
+  border-color: var(--xp-blue);
+}
+.gameover-link-buy {
+  color: var(--loot-gold);
+  border-color: rgba(255,217,61,0.3);
+}
+.gameover-link-buy:hover {
+  border-color: var(--loot-gold);
+  box-shadow: 0 0 12px rgba(255,217,61,0.15);
+}
+
+/* ── Scroll Reveal ── */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.scroll-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .hero-title-top,
+  .hero-title-ticker {
+    font-size: clamp(36px, 12vw, 80px);
+  }
+  .health-bar {
+    width: 120px;
+    height: 8px;
+  }
+  #hud {
+    padding: 8px 12px;
+  }
+  .trade-counter {
+    font-size: 14px;
+  }
+  .level-container {
+    padding: 80px 16px;
+  }
+  .level-title {
+    font-size: 24px;
+  }
+  .loop-text {
+    font-size: 16px;
+  }
+  .boss-quote {
+    padding: 24px;
+  }
+  .boss-quote-text {
+    font-size: 16px;
+  }
+  .arcade-step {
+    font-size: 11px;
+    padding: 12px 12px;
+  }
+  .gameover-title {
+    font-size: 36px;
+  }
+  .achievement {
+    padding: 12px 14px;
+    gap: 12px;
+  }
+  .nav-ca {
+    font-size: 9px;
+    max-width: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title-top,
+  .hero-title-ticker {
+    font-size: clamp(28px, 14vw, 56px);
+  }
+  .hero-desc {
+    font-size: 14px;
+  }
+  .arcade-continue {
+    display: none;
+  }
+  .health-bar {
+    width: 80px;
+  }
+  .gameover-links {
+    flex-direction: column;
+    gap: 12px;
+  }
+}

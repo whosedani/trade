@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>$TRADE — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Share Tech Mono', monospace;
+      background: #121318;
+      color: #D8DEE9;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .admin-card {
+      width: 100%;
+      max-width: 480px;
+      background: rgba(77, 168, 218, 0.03);
+      border: 1px solid rgba(77, 168, 218, 0.15);
+      border-radius: 8px;
+      padding: 40px 32px;
+    }
+    .admin-title {
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 20px;
+      color: #4DA8DA;
+      text-align: center;
+      margin-bottom: 32px;
+      letter-spacing: 2px;
+    }
+    .field {
+      margin-bottom: 20px;
+    }
+    .field label {
+      display: block;
+      font-size: 11px;
+      color: #5A6270;
+      margin-bottom: 6px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .field input {
+      width: 100%;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 14px;
+      padding: 10px 14px;
+      border: 1px solid rgba(77, 168, 218, 0.15);
+      border-radius: 4px;
+      background: rgba(18, 19, 24, 0.8);
+      color: #D8DEE9;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .field input:focus {
+      border-color: #4DA8DA;
+    }
+    .btn {
+      width: 100%;
+      padding: 12px;
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 14px;
+      letter-spacing: 1px;
+      background: transparent;
+      color: #4DA8DA;
+      border: 1px solid #4DA8DA;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 8px;
+    }
+    .btn:hover { background: rgba(77, 168, 218, 0.1); }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .status {
+      text-align: center;
+      font-size: 12px;
+      margin-top: 16px;
+      min-height: 20px;
+    }
+    .status.ok { color: #FFD93D; }
+    .status.err { color: #FF4545; }
+    #loginSection, #configSection { display: none; }
+    #loginSection.active, #configSection.active { display: block; }
+  </style>
+</head>
+<body>
+  <div class="admin-card">
+    <div class="admin-title">$TRADE — ADMIN</div>
+
+    <div id="loginSection" class="active">
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="passwordInput" placeholder="enter admin password">
+      </div>
+      <button class="btn" id="loginBtn">AUTHENTICATE</button>
+      <p class="status" id="loginStatus"></p>
+    </div>
+
+    <div id="configSection">
+      <div class="field">
+        <label>Contract Address (CA)</label>
+        <input type="text" id="caInput" placeholder="token contract address">
+      </div>
+      <div class="field">
+        <label>Twitter URL</label>
+        <input type="url" id="twitterInput" placeholder="https://x.com/...">
+      </div>
+      <div class="field">
+        <label>Community URL</label>
+        <input type="url" id="communityInput" placeholder="https://t.me/...">
+      </div>
+      <div class="field">
+        <label>Buy URL</label>
+        <input type="url" id="buyInput" placeholder="https://raydium.io/swap/...">
+      </div>
+      <button class="btn" id="saveBtn">SAVE CONFIG</button>
+      <p class="status" id="saveStatus"></p>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      let adminHash = '';
+
+      async function sha256(message) {
+        const msgBuffer = new TextEncoder().encode(message);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      }
+
+      async function loadCurrent() {
+        try {
+          const res = await fetch('/api/config');
+          const data = await res.json();
+          if (data.ca) document.getElementById('caInput').value = data.ca;
+          if (data.twitter) document.getElementById('twitterInput').value = data.twitter;
+          if (data.community) document.getElementById('communityInput').value = data.community;
+          if (data.buy) document.getElementById('buyInput').value = data.buy;
+        } catch (e) {}
+      }
+
+      document.getElementById('loginBtn').addEventListener('click', async () => {
+        const pw = document.getElementById('passwordInput').value;
+        if (!pw) return;
+        adminHash = await sha256(pw);
+
+        try {
+          const res = await fetch('/api/config', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ hash: adminHash })
+          });
+          if (res.status === 401) {
+            document.getElementById('loginStatus').textContent = 'wrong password';
+            document.getElementById('loginStatus').className = 'status err';
+            return;
+          }
+          document.getElementById('loginSection').classList.remove('active');
+          document.getElementById('configSection').classList.add('active');
+          loadCurrent();
+        } catch (e) {
+          document.getElementById('loginStatus').textContent = 'connection error';
+          document.getElementById('loginStatus').className = 'status err';
+        }
+      });
+
+      document.getElementById('passwordInput').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') document.getElementById('loginBtn').click();
+      });
+
+      document.getElementById('saveBtn').addEventListener('click', async () => {
+        const btn = document.getElementById('saveBtn');
+        const status = document.getElementById('saveStatus');
+        btn.disabled = true;
+
+        const config = {
+          hash: adminHash,
+          ca: document.getElementById('caInput').value.trim(),
+          twitter: document.getElementById('twitterInput').value.trim(),
+          community: document.getElementById('communityInput').value.trim(),
+          buy: document.getElementById('buyInput').value.trim()
+        };
+
+        try {
+          const res = await fetch('/api/config', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(config)
+          });
+          const data = await res.json();
+          if (data.ok) {
+            status.textContent = 'config saved';
+            status.className = 'status ok';
+          } else {
+            status.textContent = data.error || 'failed';
+            status.className = 'status err';
+          }
+        } catch (e) {
+          status.textContent = 'connection error';
+          status.className = 'status err';
+        }
+        btn.disabled = false;
+        setTimeout(() => { status.textContent = ''; }, 3000);
+      });
+    })();
+  </script>
+</body>
+</html>

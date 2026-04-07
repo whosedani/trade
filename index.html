@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>$TRADE — Just One More Trade</title>
+  <meta name="description" content="Just One More Trade. The crypto game you can't quit. $TRADE on Solana.">
+  <meta property="og:title" content="$TRADE — Just One More Trade">
+  <meta property="og:description" content="Trading is a video game. You're already playing. $TRADE on Solana.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Lexend:wght@300;400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Toast -->
+  <div id="toast">address saved. one more trade.</div>
+
+  <!-- HUD Overlay -->
+  <div id="hud">
+    <div class="hud-left">
+      <div class="health-bar">
+        <div class="health-fill" id="healthFill"></div>
+      </div>
+      <span class="health-label" id="healthLabel">HP: 100%</span>
+    </div>
+    <div class="hud-right">
+      <span class="trade-counter-label">TRADES:</span>
+      <span class="trade-counter" id="tradeCount">000</span>
+    </div>
+    <div id="milestone"></div>
+  </div>
+
+  <!-- Nav -->
+  <nav class="game-nav">
+    <a href="#level0" class="nav-logo">TRADE</a>
+    <button class="nav-ca" id="navCA" title="Click to copy CA">loading...</button>
+    <a href="#" class="nav-community" id="communityLink" target="_blank" rel="noopener" aria-label="Community">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+    </a>
+  </nav>
+
+  <!-- LEVEL 0 — TITLE SCREEN -->
+  <section id="level0" class="level level-hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-label">PRESS START</p>
+      <h1 class="hero-title">
+        <span class="hero-title-top">JUST ONE MORE</span>
+        <span class="hero-title-ticker">$TRADE</span>
+      </h1>
+      <p class="hero-desc" id="typewriter" data-text="you know you should stop. but there's always one more setup. one more chart. one more reason to stay."></p>
+      <button class="hero-btn" id="startBtn">&#9654; START TRADING</button>
+      <p class="hero-scroll-hint">scroll to enter the game</p>
+    </div>
+  </section>
+
+  <!-- LEVEL 1 — THE FIRST HIT -->
+  <section id="level1" class="level">
+    <div class="level-container">
+      <p class="level-label">LEVEL 1</p>
+      <h2 class="level-title">THE FIRST HIT</h2>
+
+      <div class="loading-tip">
+        <p>Loading tip: It starts as a quick trade. It always starts as a quick trade.</p>
+      </div>
+
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="level1Progress"></div>
+      </div>
+
+      <div class="time-blocks">
+        <div class="time-block scroll-reveal">
+          <span class="time-stamp">11:47 PM</span>
+          <p class="time-text">you open the chart. just to check. just for a second.</p>
+        </div>
+        <div class="time-block scroll-reveal">
+          <span class="time-stamp">12:30 AM</span>
+          <p class="time-text">one trade. you told yourself one trade. that was three trades ago.</p>
+        </div>
+        <div class="time-block scroll-reveal danger">
+          <span class="time-stamp">2:14 AM</span>
+          <p class="time-text">your eyes burn. your back hurts. the chart hasn't moved in 40 minutes. you're still watching.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEVEL 2 — THE LOOP -->
+  <section id="level2" class="level">
+    <div class="level-container">
+      <p class="level-label">LEVEL 2</p>
+      <h2 class="level-title">THE LOOP</h2>
+
+      <div class="loop-cycle">
+        <div class="loop-step" data-index="0">
+          <span class="loop-text">spot a setup</span>
+          <span class="loop-arrow">&#8595;</span>
+        </div>
+        <div class="loop-step" data-index="1">
+          <span class="loop-text">enter the trade</span>
+          <span class="loop-arrow">&#8595;</span>
+        </div>
+        <div class="loop-step" data-index="2">
+          <span class="loop-text">watch the chart</span>
+          <span class="loop-arrow">&#8595;</span>
+        </div>
+        <div class="loop-step" data-index="3">
+          <span class="loop-text">win or lose, feel nothing</span>
+          <span class="loop-arrow">&#8595;</span>
+        </div>
+        <div class="loop-step" data-index="4">
+          <span class="loop-text">"just one more"</span>
+          <span class="loop-arrow loop-return">&#8617;</span>
+        </div>
+      </div>
+
+      <p class="loop-desc">it's not about the money. it was never about the money. it's the dopamine of the next candle.</p>
+    </div>
+  </section>
+
+  <!-- LEVEL 3 — THE SYMPTOMS -->
+  <section id="level3" class="level">
+    <div class="level-container">
+      <p class="level-label">LEVEL 3</p>
+      <h2 class="level-title">THE SYMPTOMS</h2>
+
+      <div class="achievements">
+        <div class="achievement scroll-reveal">
+          <div class="achievement-icon">&#128336;</div>
+          <div class="achievement-info">
+            <span class="achievement-name">NIGHT OWL</span>
+            <span class="achievement-desc">Traded past 3am</span>
+          </div>
+          <span class="achievement-status">UNLOCKED</span>
+        </div>
+        <div class="achievement scroll-reveal">
+          <div class="achievement-icon">&#128201;</div>
+          <div class="achievement-info">
+            <span class="achievement-name">DIAMOND HANDS</span>
+            <span class="achievement-desc">Held through -80%</span>
+          </div>
+          <span class="achievement-status">UNLOCKED</span>
+        </div>
+        <div class="achievement scroll-reveal">
+          <div class="achievement-icon">&#127829;</div>
+          <div class="achievement-info">
+            <span class="achievement-name">SKIP DINNER</span>
+            <span class="achievement-desc">Forgot to eat watching charts</span>
+          </div>
+          <span class="achievement-status">UNLOCKED</span>
+        </div>
+        <div class="achievement scroll-reveal">
+          <div class="achievement-icon">&#128128;</div>
+          <div class="achievement-info">
+            <span class="achievement-name">JUST ONE MORE</span>
+            <span class="achievement-desc">Said "last trade" 11 times</span>
+          </div>
+          <span class="achievement-status">UNLOCKED</span>
+        </div>
+        <div class="achievement scroll-reveal">
+          <div class="achievement-icon">&#128241;</div>
+          <div class="achievement-info">
+            <span class="achievement-name">PHANTOM BUZZ</span>
+            <span class="achievement-desc">Checked phone for no reason</span>
+          </div>
+          <span class="achievement-status">UNLOCKED</span>
+        </div>
+        <div class="achievement scroll-reveal">
+          <div class="achievement-icon">&#128564;</div>
+          <div class="achievement-info">
+            <span class="achievement-name">WHAT IS SLEEP</span>
+            <span class="achievement-desc">Screen time: 16 hours</span>
+          </div>
+          <span class="achievement-status">UNLOCKED</span>
+        </div>
+        <div class="achievement scroll-reveal">
+          <div class="achievement-icon">&#128308;</div>
+          <div class="achievement-info">
+            <span class="achievement-name">REVENGE TRADE</span>
+            <span class="achievement-desc">Lost, then doubled down</span>
+          </div>
+          <span class="achievement-status">UNLOCKED</span>
+        </div>
+        <div class="achievement scroll-reveal">
+          <div class="achievement-icon">&#129504;</div>
+          <div class="achievement-info">
+            <span class="achievement-name">THE DENIAL</span>
+            <span class="achievement-desc">Told yourself you're fine</span>
+          </div>
+          <span class="achievement-status">UNLOCKED</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEVEL 4 — BOSS FIGHT -->
+  <section id="level4" class="level level-boss">
+    <div class="level-container">
+      <p class="level-label">LEVEL 4</p>
+      <h2 class="level-title">BOSS FIGHT</h2>
+
+      <div class="boss-quote scroll-reveal">
+        <div class="boss-quote-header">
+          <span class="boss-quote-author">OKX</span>
+          <span class="boss-quote-handle">@okx &middot; Apr 7, 2026</span>
+        </div>
+        <p class="boss-quote-text">"Just one more trade" is the crypto version of "just one more level" in a video game at 2am.</p>
+      </div>
+
+      <p class="boss-subtext">36.4K people saw this and felt personally attacked.</p>
+    </div>
+  </section>
+
+  <!-- LEVEL 5 — INSERT COIN -->
+  <section id="level5" class="level">
+    <div class="level-container">
+      <p class="level-label">LEVEL 5</p>
+      <h2 class="level-title">INSERT COIN</h2>
+
+      <div class="arcade-steps">
+        <div class="arcade-step scroll-reveal">
+          <span class="arcade-continue">CONTINUE?</span>
+          <span class="arcade-instruction"><span class="arcade-num">1.</span> Download Phantom</span>
+          <span class="arcade-coin">INSERT COIN</span>
+        </div>
+        <div class="arcade-step scroll-reveal">
+          <span class="arcade-continue">CONTINUE?</span>
+          <span class="arcade-instruction"><span class="arcade-num">2.</span> Buy SOL</span>
+          <span class="arcade-coin">INSERT COIN</span>
+        </div>
+        <div class="arcade-step scroll-reveal">
+          <span class="arcade-continue">CONTINUE?</span>
+          <span class="arcade-instruction"><span class="arcade-num">3.</span> Swap for $TRADE</span>
+          <span class="arcade-coin">INSERT COIN</span>
+        </div>
+        <div class="arcade-step scroll-reveal">
+          <span class="arcade-continue">CONTINUE?</span>
+          <span class="arcade-instruction"><span class="arcade-num">4.</span> You're in. Good luck stopping.</span>
+          <span class="arcade-coin arcade-gameover">GAME OVER</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GAME OVER — Footer -->
+  <footer id="gameOver">
+    <div class="gameover-content">
+      <h2 class="gameover-title">GAME OVER</h2>
+      <p class="gameover-continue">CONTINUE? INSERT $TRADE</p>
+      <p class="gameover-tagline">just one more trade. on-chain.</p>
+      <p class="gameover-counter">TOTAL TRADES THIS SESSION: <span id="finalTradeCount">0</span></p>
+      <div class="gameover-links">
+        <a href="#" id="footerTwitter" target="_blank" rel="noopener" class="gameover-link">Twitter</a>
+        <a href="#" id="footerCommunity" target="_blank" rel="noopener" class="gameover-link">Community</a>
+        <a href="#" id="footerBuy" target="_blank" rel="noopener" class="gameover-link gameover-link-buy">Buy $TRADE</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
