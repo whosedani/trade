@@ -457,9 +457,12 @@ body::before {
 }
 
 /* ── Tweet Embed ── */
+.tweet-container {
+  display: flex;
+  justify-content: center;
+}
 .tweet-embed {
   width: 100%;
-  margin: 32px 0 0;
 }
 .tweet-embed iframe {
   width: 100%;
