@@ -224,6 +224,7 @@ body::before {
   max-width: 720px;
   margin: 0 auto;
   padding: 60px 24px;
+  text-align: center;
 }
 .level-title {
   font-family: var(--font-heading);
@@ -231,6 +232,7 @@ body::before {
   color: var(--screen-white);
   font-weight: 700;
   margin-bottom: 32px;
+  text-align: center;
 }
 
 /* ── LEVEL 0 — Title Screen ── */
@@ -354,6 +356,7 @@ body::before {
   border-left: 2px solid var(--loot-gold);
   padding-left: 16px;
   margin-bottom: 32px;
+  text-align: left;
 }
 .loading-tip p {
   font-family: var(--font-body);
@@ -396,6 +399,10 @@ body::before {
   color: var(--screen-white);
   display: block;
   margin-bottom: 8px;
+  text-align: left;
+}
+.time-text {
+  text-align: left;
 }
 .time-block.danger .time-stamp {
   color: var(--crit-red);
@@ -463,6 +470,7 @@ body::before {
 }
 .tweet-embed {
   width: 100%;
+  max-width: 720px;
 }
 .tweet-embed iframe {
   width: 100%;
