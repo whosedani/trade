@@ -469,8 +469,11 @@ body::before {
   justify-content: center;
 }
 .tweet-embed {
-  width: 100%;
-  max-width: 720px;
+  width: 550px;
+  max-width: 100%;
+  transform: scale(1.22);
+  transform-origin: top center;
+  margin-bottom: 40px;
 }
 .tweet-embed iframe {
   width: 100%;
